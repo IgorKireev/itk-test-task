@@ -1,7 +1,6 @@
 from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import relationship
 from src.schemas.users import UserCreate, UserUpdate
 from src.models.users import UsersOrm
 from src.exceptions.exceptions import bad_request
