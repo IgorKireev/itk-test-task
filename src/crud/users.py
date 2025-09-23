@@ -7,7 +7,7 @@ from src.exceptions.exceptions import bad_request
 
 
 
-class UserCRUD:
+class UsersCRUD:
     @staticmethod
     async def get_users(session: AsyncSession) -> list[UsersOrm]:
         query = select(UsersOrm).order_by(UsersOrm.id)
