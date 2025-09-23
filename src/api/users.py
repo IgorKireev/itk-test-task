@@ -33,7 +33,7 @@ async def create_user(
     ):
     return await UsersCRUD.create_user(user_data, session)
 
-@router.put('/{user_id')
+@router.put('/{user_id}')
 async def upadte_user(
         user_id: int,
         user_data: UserUpdate,
