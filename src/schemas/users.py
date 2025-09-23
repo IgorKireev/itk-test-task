@@ -11,5 +11,5 @@ class User(BaseModel):
     surname: str = Field(min_length=2, max_length=15)
     age: int = Field(lt=100)
     hobbies: str | None
-    relationship_status: RelationshipStatus | None
+    relationship_status: RelationshipStatus
 
