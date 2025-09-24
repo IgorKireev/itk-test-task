@@ -10,4 +10,4 @@ app.include_router(router_users)
 
 @app.get('/')
 async def main():
-    return {'Hello World!'}
+    return {'Hello ITK academy!'}
