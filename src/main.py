@@ -1,3 +1,5 @@
+"""Этот файл содержит точку входа для запуска приложения с использованием Uvicorn."""
+
 from fastapi import FastAPI
 from src.api.users import router as router_users
 
