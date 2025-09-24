@@ -34,4 +34,3 @@ class UsersOrm(Base):
     relationship_status: Mapped[RelationshipStatus] = mapped_column(
         Enum(RelationshipStatus, values_callable=lambda x: [e.value for e in x])
     )
-

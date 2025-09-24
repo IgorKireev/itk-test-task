@@ -1,13 +1,11 @@
 """Модуль для работы с crud операциями, связанными с пользователем."""
 
-
 from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 from src.schemas.users import UserCreate, UserUpdate
 from src.models.users import UsersOrm
 from src.exceptions.exceptions import bad_request
-
 
 
 class UsersCRUD:
@@ -29,12 +27,8 @@ class UsersCRUD:
         users = result.scalars().all()
         return list(users)
 
-
     @staticmethod
-    async def get_user(
-            user_id: int,
-            session: AsyncSession
-    ) -> UsersOrm | None:
+    async def get_user(user_id: int, session: AsyncSession) -> UsersOrm | None:
         """
         Получить пользователя по ID.
 
@@ -48,12 +42,8 @@ class UsersCRUD:
 
         return await session.get(UsersOrm, user_id)
 
-
     @staticmethod
-    async def create_user(
-            user_data: UserCreate,
-            session: AsyncSession
-    ) -> UsersOrm:
+    async def create_user(user_data: UserCreate, session: AsyncSession) -> UsersOrm:
         """
         Создать нового пользователя.
 
@@ -71,7 +61,7 @@ class UsersCRUD:
             surname=user_data.surname,
             age=user_data.age,
             hobbies=user_data.hobbies,
-            relationship_status=user_data.relationship_status
+            relationship_status=user_data.relationship_status,
         )
         try:
             session.add(user)
@@ -82,12 +72,9 @@ class UsersCRUD:
             await session.rollback()
             raise bad_request()
 
-
     @staticmethod
     async def update_user(
-        user_id: int,
-        user_data: UserUpdate,
-        session: AsyncSession
+        user_id: int, user_data: UserUpdate, session: AsyncSession
     ) -> UsersOrm | None:
         """
         Обновить данные пользователя.
@@ -107,9 +94,7 @@ class UsersCRUD:
         if user is None:
             return None
         data = user_data.model_dump()
-        data = {
-            key: value for key, value in data.items() if value is not None
-        }
+        data = {key: value for key, value in data.items() if value is not None}
         for key, value in data.items():
             setattr(user, key, value)
         try:
@@ -120,12 +105,8 @@ class UsersCRUD:
             await session.rollback()
             raise bad_request()
 
-
     @staticmethod
-    async def delete_user(
-            user_id: int,
-            session: AsyncSession
-    ) -> bool:
+    async def delete_user(user_id: int, session: AsyncSession) -> bool:
         """
         Удалить пользователя по ID.
 

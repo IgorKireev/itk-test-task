@@ -6,10 +6,12 @@
 from enum import StrEnum
 from pydantic import BaseModel, Field
 
+
 class RelationshipStatus(StrEnum):
     SINGLE = "single"
     IN_RELATIONSHIP = "in relationship"
     MARRIED = "married"
+
 
 class UserBase(BaseModel):
     """
@@ -36,6 +38,7 @@ class UserCreate(UserBase):
 
     Наследует все атрибуты от UserBase.
     """
+
     pass
 
 
@@ -51,6 +54,7 @@ class User(UserBase):
         hobbies (str): Хобби и увлечения пользователя.
         relationship_status (RelationshipStatus): Семейное положение.
     """
+
     id: int
 
     class Config:
@@ -68,6 +72,7 @@ class UserUpdate(BaseModel):
         hobbies (str | None): Новые хобби и увлечения.
         relationship_status (RelationshipStatus | None): Новое семейное положение.
     """
+
     name: str | None = Field(None, min_length=2, max_length=15)
     surname: str | None = Field(None, min_length=2, max_length=15)
     age: int | None = Field(None, lt=100)

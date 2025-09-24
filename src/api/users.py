@@ -9,11 +9,11 @@ from src.config.config import get_session
 from src.exceptions.exceptions import not_found
 
 
-router = APIRouter(prefix='/users', tags=['Users'])
+router = APIRouter(prefix="/users", tags=["Users"])
 
 
 @router.get(
-    '/',
+    "/",
     response_model=list[User],
     status_code=status.HTTP_200_OK,
     summary="Получить всех пользователей",
@@ -33,16 +33,15 @@ async def get_users(session: Annotated[AsyncSession, Depends(get_session)]):
 
 
 @router.get(
-    '/{user_id}',
+    "/{user_id}",
     response_model=User,
     status_code=status.HTTP_200_OK,
     summary="Получить пользователя по ID",
     description="Возвращает информацию о конкретном пользователе",
 )
 async def get_user(
-        user_id: int,
-        session: Annotated[AsyncSession, Depends(get_session)]
-    ):
+    user_id: int, session: Annotated[AsyncSession, Depends(get_session)]
+):
     """
     Получить пользователя по ID.
 
@@ -58,7 +57,7 @@ async def get_user(
     user = await UsersCRUD.get_user(user_id, session)
     if user:
         return user
-    raise not_found(entity='User')
+    raise not_found(entity="User")
 
 
 @router.post(
@@ -69,9 +68,8 @@ async def get_user(
     description="Создает нового пользователя",
 )
 async def create_user(
-        user_data: UserCreate,
-        session: Annotated[AsyncSession, Depends(get_session)]
-    ):
+    user_data: UserCreate, session: Annotated[AsyncSession, Depends(get_session)]
+):
     """
     Создать нового пользователя.
 
@@ -87,17 +85,17 @@ async def create_user(
 
 
 @router.put(
-    '/{user_id}',
+    "/{user_id}",
     response_model=User,
     status_code=status.HTTP_200_OK,
     summary="Обновить данные пользователя",
     description="Обновляет данные существующего пользователя",
 )
 async def update_user(
-        user_id: int,
-        user_data: UserUpdate,
-        session: Annotated[AsyncSession, Depends(get_session)]
-    ):
+    user_id: int,
+    user_data: UserUpdate,
+    session: Annotated[AsyncSession, Depends(get_session)],
+):
     """
     Обновить данные пользователя.
 
@@ -113,13 +111,11 @@ async def update_user(
     """
 
     user = await UsersCRUD.update_user(
-        user_data=user_data,
-        user_id=user_id,
-        session=session
+        user_data=user_data, user_id=user_id, session=session
     )
     if user:
         return user
-    raise not_found(entity='User')
+    raise not_found(entity="User")
 
 
 @router.delete(
@@ -129,9 +125,8 @@ async def update_user(
     description="Удаляет пользователя из системы",
 )
 async def delete_user(
-        user_id: int,
-        session: Annotated[AsyncSession, Depends(get_session)]
-    ):
+    user_id: int, session: Annotated[AsyncSession, Depends(get_session)]
+):
     """
     Удалить пользователя по ID.
 

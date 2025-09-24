@@ -8,6 +8,6 @@ app = FastAPI()
 app.include_router(router_users)
 
 
-@app.get('/')
+@app.get("/")
 async def main():
-    return {'Hello ITK academy!'}
+    return {"Hello ITK academy!"}
