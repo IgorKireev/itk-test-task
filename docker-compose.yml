@@ -1,0 +1,39 @@
+version: "3.9"
+services:
+  app:
+    build: .
+    container_name: todoapp
+    depends_on:
+      - db
+    environment:
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+      - DB_HOST=db
+      - DB_NAME=${DB_NAME}
+      - DB_PORT=${DB_PORT}
+    ports:
+      - "8000:8000"
+    entrypoint: ["/bin/sh", "/app/docker-entrypoint.sh"]
+    networks:
+      - todolist_mynetwork
+
+  db:
+    image: postgres:15
+    container_name: db
+    restart: always
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+      - POSTGRES_DB=${DB_NAME}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - todolist_mynetwork
+
+volumes:
+  postgres_data: {}
+
+networks:
+  todolist_mynetwork:
