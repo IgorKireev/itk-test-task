@@ -1,3 +1,5 @@
+"""Модуль содержит настройки для работы с базой данных."""
+
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
 from src.settings.settings import settings
 
@@ -12,5 +14,13 @@ async_engine = create_async_engine(
 async_session_factory = async_sessionmaker(async_engine, class_=AsyncSession)
 
 async def get_session() -> AsyncSession:
+    """
+    Асинхронно создаёт и предоставляет сессию SQLAlchemy.
+    Сессия автоматически закрывается после завершения запроса.
+
+    :return: AsyncSession: асинхронная сессия SQLAlchemy.
+    :rtype: AsyncSession
+    """
+
     async with async_session_factory() as session:
         yield session
