@@ -20,7 +20,7 @@
 
 1. Клонируйте репозиторий и перейдите в папку с проектом:
    ```bash
-   git clone https://github.com/IgorKireev/itk-test-task/tree/main
+   git clone https://github.com/IgorKireev/itk-test-task
    cd itk-test-task
    ```
    
